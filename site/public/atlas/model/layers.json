@@ -1,0 +1,622 @@
+{
+ "layers": [
+  {
+   "key": "sentinel2",
+   "label": "Sentinel-2 true colour, Aug-Sep 2025",
+   "group": "Imagery",
+   "kind": "image",
+   "units": "",
+   "texture": "sentinel2.webp",
+   "values": null,
+   "legend": {},
+   "note": "Cloud-masked median, 20 m. Contains modified Copernicus Sentinel data 2025",
+   "sources": [
+    {
+     "key": "sentinel2_l2a",
+     "title": "Copernicus Sentinel-2 L2A surface reflectance (ESA), via Microsoft Planetary Computer STAC; cloud-masked (SCL 4,5,6,7,11) median of scenes <= 25% cloud, 2025-08-01 to 2025-09-30",
+     "link": "https://planetarycomputer.microsoft.com/dataset/sentinel-2-l2a"
+    }
+   ]
+  },
+  {
+   "key": "geology",
+   "label": "Geology (model units)",
+   "group": "Geology",
+   "kind": "categorical",
+   "units": "",
+   "note": "WA DNR 1:100k GeMS map units through the model crosswalk; ice from IceBoost",
+   "texture": "geology.png",
+   "values": {
+    "file": "geology.u16.bin",
+    "width": 1020,
+    "height": 689,
+    "scale": 1.0,
+    "offset": 0.0,
+    "nodata": 65535
+   },
+   "legend": {
+    "classes": [
+     {
+      "value": 1,
+      "label": "Glacier ice",
+      "color": "#dfeefb"
+     },
+     {
+      "value": 2,
+      "label": "Water",
+      "color": "#7fb8e6"
+     },
+     {
+      "value": 3,
+      "label": "Glacial drift",
+      "color": "#e8dcb5"
+     },
+     {
+      "value": 4,
+      "label": "Alluvium and colluvium",
+      "color": "#f4e9c9"
+     },
+     {
+      "value": 5,
+      "label": "Lahar deposits",
+      "color": "#d9b88f"
+     },
+     {
+      "value": 6,
+      "label": "Mount Rainier andesite",
+      "color": "#e07a5f"
+     },
+     {
+      "value": 7,
+      "label": "Younger volcanic rocks",
+      "color": "#f2a65a"
+     },
+     {
+      "value": 8,
+      "label": "Miocene intrusive rocks",
+      "color": "#c9504b"
+     },
+     {
+      "value": 9,
+      "label": "Miocene volcanic rocks",
+      "color": "#8e7cc3"
+     },
+     {
+      "value": 10,
+      "label": "Ohanapecosh Formation",
+      "color": "#b7a6d6"
+     },
+     {
+      "value": 11,
+      "label": "Eocene volcanic rocks",
+      "color": "#6d6875"
+     },
+     {
+      "value": 12,
+      "label": "Puget Group and Eocene sedimentary rocks",
+      "color": "#a8896c"
+     },
+     {
+      "value": 13,
+      "label": "Mashel Formation",
+      "color": "#c9b79c"
+     },
+     {
+      "value": 14,
+      "label": "Russell Ranch Formation",
+      "color": "#5c5c5c"
+     }
+    ]
+   },
+   "sources": [
+    {
+     "key": "dnr_gems_100k",
+     "title": "Washington Geological Survey 1:100,000 surface geology (GeMS), map units, orientations, faults",
+     "link": "https://gis.dnr.wa.gov/site1/rest/services/Public_Geology/100K_Surface_Geology_WA_GeMS/FeatureServer"
+    },
+    {
+     "key": "iceboost_v2",
+     "title": "IceBoost v2.0 per-glacier ice thickness and error (N. Maffezzoli, UC Irvine), RGI 6.0 region 02 GeoTIFFs, produced 2025-11-05",
+     "link": "https://cluster.klima.uni-bremen.de/~oggm/ice_thickness/iceboost_v2/RGI62/rgi2/"
+    }
+   ]
+  },
+  {
+   "key": "ice_thickness",
+   "label": "Glacier ice thickness",
+   "group": "Cryosphere",
+   "kind": "continuous",
+   "units": "m",
+   "note": "IceBoost v2, rescaled to each glacier's volume",
+   "texture": "ice_thickness.webp",
+   "values": {
+    "file": "ice_thickness.u16.bin",
+    "width": 1020,
+    "height": 689,
+    "scale": 0.005526311786358173,
+    "offset": 0,
+    "nodata": 65535
+   },
+   "legend": {
+    "min": 0,
+    "max": 250,
+    "log": false,
+    "ramp": [
+     "#ffffff",
+     "#ced1d7",
+     "#a2b0ca",
+     "#7b98ca",
+     "#4e7abb",
+     "#26568b",
+     "#15385a",
+     "#0e1d2d",
+     "#010101"
+    ]
+   },
+   "sources": [
+    {
+     "key": "iceboost_v2",
+     "title": "IceBoost v2.0 per-glacier ice thickness and error (N. Maffezzoli, UC Irvine), RGI 6.0 region 02 GeoTIFFs, produced 2025-11-05",
+     "link": "https://cluster.klima.uni-bremen.de/~oggm/ice_thickness/iceboost_v2/RGI62/rgi2/"
+    },
+    {
+     "key": "rgi60",
+     "title": "RGI Consortium 2017, Randolph Glacier Inventory 6.0 (via OGGM rgi62_stats.csv)",
+     "link": "https://doi.org/10.7265/N5-RGI-60"
+    }
+   ]
+  },
+  {
+   "key": "soil_thickness",
+   "label": "Soil thickness",
+   "group": "Soil",
+   "kind": "continuous",
+   "units": "m",
+   "note": "SOLUS100 depth to lithic contact; 2.01 m means deeper than the survey",
+   "texture": "soil_thickness.webp",
+   "values": {
+    "file": "soil_thickness.u16.bin",
+    "width": 1020,
+    "height": 689,
+    "scale": 3.092307692307692e-05,
+    "offset": 0,
+    "nodata": 65535
+   },
+   "legend": {
+    "min": 0,
+    "max": 2.01,
+    "log": false,
+    "ramp": [
+     "#191900",
+     "#372411",
+     "#67342a",
+     "#a64644",
+     "#d9604e",
+     "#e58851",
+     "#edae54",
+     "#f7da74",
+     "#fffecb"
+    ]
+   },
+   "sources": [
+    {
+     "key": "solus100",
+     "title": "Nauman et al. 2024, SOLUS100 soil landscapes of the United States at 100 m, depth to any lithic contact (anylithicdpt_cm_p)",
+     "link": "https://doi.org/10.15482/USDA.ADC/25033856"
+    }
+   ]
+  },
+  {
+   "key": "water_table_depth",
+   "label": "Water-table depth, Ma et al. 2026",
+   "group": "Water",
+   "kind": "continuous",
+   "units": "m below ground",
+   "note": "Random-forest estimate from ~24 m, CC-BY-NC-ND 4.0",
+   "texture": "water_table_depth.webp",
+   "values": {
+    "file": "water_table_depth.u16.bin",
+    "width": 1020,
+    "height": 689,
+    "scale": 0.0015384615384615385,
+    "offset": 0.0,
+    "nodata": 65535
+   },
+   "legend": {
+    "min": 0.1,
+    "max": 100,
+    "log": true,
+    "ramp": [
+     "#2c1a4c",
+     "#29386a",
+     "#29588f",
+     "#4272bc",
+     "#7e8fdd",
+     "#b0abee",
+     "#cbc6f4",
+     "#e5e3fa",
+     "#ffffff"
+    ]
+   },
+   "sources": [
+    {
+     "key": "ma2026_wtd",
+     "title": "Ma, Condon, Koch, Bennett, Defnet, Tijerina-Kreuzer, Melchior & Maxwell 2026, High resolution US water table depth estimates reveal quantity of accessible groundwater, Commun. Earth Environ. 7, 45",
+     "link": "https://doi.org/10.5281/zenodo.18504963"
+    }
+   ]
+  },
+  {
+   "key": "water_table_depth_fan",
+   "label": "Water-table depth, Fan et al. 2017",
+   "group": "Water",
+   "kind": "continuous",
+   "units": "m below ground",
+   "note": "Global model at 30 arcsec (~1 km)",
+   "texture": "water_table_depth_fan.webp",
+   "values": {
+    "file": "water_table_depth_fan.u16.bin",
+    "width": 1020,
+    "height": 689,
+    "scale": 0.013024397160456731,
+    "offset": 5.684341886080802e-14,
+    "nodata": 65535
+   },
+   "legend": {
+    "min": 0.1,
+    "max": 100,
+    "log": true,
+    "ramp": [
+     "#2c1a4c",
+     "#29386a",
+     "#29588f",
+     "#4272bc",
+     "#7e8fdd",
+     "#b0abee",
+     "#cbc6f4",
+     "#e5e3fa",
+     "#ffffff"
+    ]
+   },
+   "sources": [
+    {
+     "key": "fan2017_wtd",
+     "title": "Fan, Miguez-Macho, Jobbagy, Jackson & Otero-Casal 2017, Hydrologic regulation of plant rooting depth, PNAS; global water-table depth annual mean (after Fan et al. 2013, Science)",
+     "link": "https://doi.org/10.1073/pnas.1712381114"
+    }
+   ]
+  },
+  {
+   "key": "canopy_height",
+   "label": "Canopy height",
+   "group": "Ecology",
+   "kind": "continuous",
+   "units": "m",
+   "note": "ETH global canopy height 2020, from 10 m",
+   "texture": "canopy_height.webp",
+   "values": {
+    "file": "canopy_height.u16.bin",
+    "width": 1020,
+    "height": 689,
+    "scale": 0.0009230769230769231,
+    "offset": 0,
+    "nodata": 65535
+   },
+   "legend": {
+    "min": 0,
+    "max": 60,
+    "log": false,
+    "ramp": [
+     "#ffe5ad",
+     "#ddc464",
+     "#b4a022",
+     "#898900",
+     "#61790b",
+     "#406420",
+     "#245231",
+     "#0f443e",
+     "#003b47"
+    ]
+   },
+   "sources": [
+    {
+     "key": "eth_canopy_2020",
+     "title": "Lang, Jetz, Schindler & Wegner 2023, A high-resolution canopy height model of the Earth, Nat. Ecol. Evol.; ETH global canopy height 2020, 10 m",
+     "link": "https://doi.org/10.3929/ethz-b-000609802"
+    }
+   ]
+  },
+  {
+   "key": "alteration_surface",
+   "label": "Hydrothermal alteration",
+   "group": "Geology",
+   "kind": "continuous",
+   "units": "index 0 to 1",
+   "note": "model alteration field in the top rock cell",
+   "texture": "alteration_surface.webp",
+   "values": {
+    "file": "alteration_surface.u16.bin",
+    "width": 1020,
+    "height": 689,
+    "scale": 1.5384615384615384e-05,
+    "offset": 0,
+    "nodata": 65535
+   },
+   "legend": {
+    "min": 0,
+    "max": 1,
+    "log": false,
+    "ramp": [
+     "#4c0001",
+     "#78292f",
+     "#994e51",
+     "#a36b59",
+     "#a9825e",
+     "#b19c67",
+     "#bfb999",
+     "#cfcec9",
+     "#ffffff"
+    ]
+   },
+   "sources": [
+    {
+     "key": "finn_2001",
+     "title": "Finn, Sisson & Deszcz-Pan 2001, Aerogeophysical measurements of collapse-prone hydrothermally altered zones at Mount Rainier volcano, Nature 409",
+     "link": "https://doi.org/10.1038/35054533"
+    },
+    {
+     "key": "john_2008",
+     "title": "John, Sisson, Breit, Rye & Vallance 2008, JVGR, hydrothermal alteration at Mount Rainier",
+     "link": "https://doi.org/10.1016/j.jvolgeores.2008.04.004"
+    }
+   ]
+  },
+  {
+   "key": "vs_top",
+   "label": "Vs, top 100 m of rock",
+   "group": "Seismic model",
+   "kind": "continuous",
+   "units": "m/s",
+   "note": "fused model, mean of the top 100 m below ground",
+   "texture": "vs_top.webp",
+   "values": {
+    "file": "vs_top.u16.bin",
+    "width": 1020,
+    "height": 689,
+    "scale": 0.04153846153846154,
+    "offset": 300,
+    "nodata": 65535
+   },
+   "legend": {
+    "min": 300,
+    "max": 3000,
+    "log": false,
+    "ramp": [
+     "#7e1700",
+     "#9d5818",
+     "#b68c32",
+     "#d0ca72",
+     "#c0eac3",
+     "#76d1d7",
+     "#389cc6",
+     "#2269b0",
+     "#033198"
+    ]
+   },
+   "sources": [
+    {
+     "key": "cvm17",
+     "title": "Wirth, Grant, Stone, Stephenson & Frankel 2025, Cascadia velocity model v1.7 with shallow soils and topography, USGS OFR 2025-1045",
+     "link": "https://doi.org/10.5066/P14HJ3IC"
+    },
+    {
+     "key": "crescent_gen0",
+     "title": "He et al. 2026, The CRESCENT Generation 0 Cascadia Community Velocity Model, JGR Solid Earth",
+     "link": "https://doi.org/10.1029/2025JB033216"
+    },
+    {
+     "key": "dnr_gems_100k",
+     "title": "Washington Geological Survey 1:100,000 surface geology (GeMS), map units, orientations, faults",
+     "link": "https://gis.dnr.wa.gov/site1/rest/services/Public_Geology/100K_Surface_Geology_WA_GeMS/FeatureServer"
+    }
+   ]
+  },
+  {
+   "key": "ndvi",
+   "label": "Vegetation index (NDVI)",
+   "group": "Ecology",
+   "kind": "continuous",
+   "units": "",
+   "note": "Sentinel-2 late-summer 2025 median",
+   "texture": "ndvi.webp",
+   "values": {
+    "file": "ndvi.u16.bin",
+    "width": 1020,
+    "height": 689,
+    "scale": 2.557106293164767e-05,
+    "offset": -0.7076217532157898,
+    "nodata": 65535
+   },
+   "legend": {
+    "min": -0.2,
+    "max": 0.9,
+    "log": false,
+    "ramp": [
+     "#ffe5ad",
+     "#ddc464",
+     "#b4a022",
+     "#898900",
+     "#61790b",
+     "#406420",
+     "#245231",
+     "#0f443e",
+     "#003b47"
+    ]
+   },
+   "sources": [
+    {
+     "key": "sentinel2_l2a",
+     "title": "Copernicus Sentinel-2 L2A surface reflectance (ESA), via Microsoft Planetary Computer STAC; cloud-masked (SCL 4,5,6,7,11) median of scenes <= 25% cloud, 2025-08-01 to 2025-09-30",
+     "link": "https://planetarycomputer.microsoft.com/dataset/sentinel-2-l2a"
+    }
+   ]
+  },
+  {
+   "key": "ndsi",
+   "label": "Snow and ice index (NDSI)",
+   "group": "Cryosphere",
+   "kind": "continuous",
+   "units": "",
+   "note": "Sentinel-2 late-summer 2025 median; above 0.4 marks ice and perennial snow",
+   "texture": "ndsi.webp",
+   "values": {
+    "file": "ndsi.u16.bin",
+    "width": 1020,
+    "height": 689,
+    "scale": 2.7402237745431753e-05,
+    "offset": -0.781145453453064,
+    "nodata": 65535
+   },
+   "legend": {
+    "min": -0.5,
+    "max": 1.0,
+    "log": false,
+    "ramp": [
+     "#010101",
+     "#0e1e2e",
+     "#15395b",
+     "#26578c",
+     "#507bbc",
+     "#7d99ca",
+     "#a3b1ca",
+     "#cfd2d8",
+     "#ffffff"
+    ]
+   },
+   "sources": [
+    {
+     "key": "sentinel2_l2a",
+     "title": "Copernicus Sentinel-2 L2A surface reflectance (ESA), via Microsoft Planetary Computer STAC; cloud-masked (SCL 4,5,6,7,11) median of scenes <= 25% cloud, 2025-08-01 to 2025-09-30",
+     "link": "https://planetarycomputer.microsoft.com/dataset/sentinel-2-l2a"
+    }
+   ]
+  },
+  {
+   "key": "land_cover",
+   "label": "Land cover",
+   "group": "Ecology",
+   "kind": "categorical",
+   "units": "",
+   "note": "",
+   "texture": "land_cover.png",
+   "values": {
+    "file": "land_cover.u16.bin",
+    "width": 1020,
+    "height": 689,
+    "scale": 1.0,
+    "offset": 0.0,
+    "nodata": 65535
+   },
+   "legend": {
+    "classes": [
+     {
+      "value": 11,
+      "label": "Open water",
+      "color": "#466b9f"
+     },
+     {
+      "value": 12,
+      "label": "Perennial ice and snow",
+      "color": "#d1def8"
+     },
+     {
+      "value": 21,
+      "label": "Developed, open space",
+      "color": "#dec5c5"
+     },
+     {
+      "value": 22,
+      "label": "Developed, low intensity",
+      "color": "#d99282"
+     },
+     {
+      "value": 23,
+      "label": "Developed, medium intensity",
+      "color": "#eb0000"
+     },
+     {
+      "value": 24,
+      "label": "Developed, high intensity",
+      "color": "#ab0000"
+     },
+     {
+      "value": 31,
+      "label": "Barren land",
+      "color": "#b3ac9f"
+     },
+     {
+      "value": 41,
+      "label": "Deciduous forest",
+      "color": "#68ab5f"
+     },
+     {
+      "value": 42,
+      "label": "Evergreen forest",
+      "color": "#1c5f2c"
+     },
+     {
+      "value": 43,
+      "label": "Mixed forest",
+      "color": "#b5c58f"
+     },
+     {
+      "value": 52,
+      "label": "Shrub/scrub",
+      "color": "#ccb879"
+     },
+     {
+      "value": 71,
+      "label": "Grassland/herbaceous",
+      "color": "#dfdfc2"
+     },
+     {
+      "value": 81,
+      "label": "Pasture/hay",
+      "color": "#dcd939"
+     },
+     {
+      "value": 82,
+      "label": "Cultivated crops",
+      "color": "#ab6c28"
+     },
+     {
+      "value": 90,
+      "label": "Woody wetlands",
+      "color": "#b8d9eb"
+     },
+     {
+      "value": 95,
+      "label": "Emergent herbaceous wetlands",
+      "color": "#6c9fb8"
+     }
+    ]
+   },
+   "sources": [
+    {
+     "key": "nlcd_2021",
+     "title": "U.S. Geological Survey / MRLC, National Land Cover Database 2021, land cover (CONUS)",
+     "link": "https://www.mrlc.gov/data"
+    }
+   ]
+  }
+ ],
+ "streams": {
+  "texture": "streams.png",
+  "count": 60172,
+  "source": "NHDPlus v2.1 flowlines (USGS/EPA)",
+  "max_order": 8
+ },
+ "texture_width": 2040,
+ "grid_note": "model surface grid, 100 m cells, EPSG:32610",
+ "model": "rainier3d M1 (Denolle-Lab/mt-rainier-virtual-3d-model)"
+}
