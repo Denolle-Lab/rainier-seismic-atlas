@@ -618,5 +618,5 @@
  },
  "texture_width": 2040,
  "grid_note": "model surface grid, 100 m cells, EPSG:32610",
- "model": "rainier3d M1 (Denolle-Lab/mt-rainier-virtual-3d-model)"
+ "model": "rainier3d M1 (Denolle-Lab/mt-rainier-digital-model)"
 }
